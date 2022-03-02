@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdidelot <fdidelot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 15:58:08 by fdidelot          #+#    #+#             */
-/*   Updated: 2022/02/28 14:53:23 by psemsari         ###   ########.fr       */
+/*   Created: 2022/03/02 12:51:27 by bemoreau          #+#    #+#             */
+/*   Updated: 2022/03/02 17:03:00 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_HPP
 # define SERVER_HPP
 
+# include <signal.h> // signal
 # include <sys/types.h> // getaddrinfo
 # include <sys/socket.h> // getaddrinfo
 # include <netdb.h> // getaddrinfo
@@ -91,6 +92,7 @@ class Server {
 		void	newConnection(void);
 		void	endConnection(int currentSocket);
 		void*	getInAddr(struct sockaddr* sa);
+		int		getListener();
 		void	execCommand(std::string commandLine);
 		void	sendCommand(int fd, std::string message);
 		User*	getUser(std::string name);
@@ -98,6 +100,7 @@ class Server {
 		Channel*	getChannel(std::string name);
 		std::string		getPassword();
 		std::vector<std::string>	getUnavalaibleNames();
+		struct addrinfo *getAI();
 		void	setUnavalaibleName(std::string name);
 
 		int		getCurrentClient(void) const;
@@ -140,5 +143,7 @@ class Server {
 		std::map<int, User>	_users; 			// list of users associate with fd
 		Channel_map			_channels;			// list of channels associate with names
 };
+
+void	shutdownServer(int sigId);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Command.hpp                                       :+:      :+:    :+:   */
+/*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdidelot <fdidelot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 21:44:55 by fdidelot          #+#    #+#             */
-/*   Updated: 2021/12/16 18:10:47 by fdidelot         ###   ########.fr       */
+/*   Created: 2022/03/02 12:51:17 by bemoreau          #+#    #+#             */
+/*   Updated: 2022/03/02 18:25:54 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define COMMAND_HPP
 
 # include "User.hpp"
-# define NB_COMMAND 21 //add if command
+# define NB_COMMAND 22 //add if command
 # define EOT_CODE 4
 
 // Error codes
@@ -338,6 +338,7 @@ class Command
 		void		_notice(std::stringstream& completeCommand, User& user);
 		void		_topic(std::stringstream& completeCommand, User& user);
 		void		_invite(std::stringstream& completeCommand, User& user);
+		void		_die(std::stringstream& completeCommand, User& user);
 };
 
 #endif

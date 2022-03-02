@@ -6,11 +6,41 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:43 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 12:46:58 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:05:52 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Server.hpp"
+
+void 	*data;
+
+void    deleteAllUsers(Server *srv, std::map<int, User> users)
+{
+	std::map<int, User>::iterator it = users.begin();
+	std::map<int, User>::iterator ite = users.end();
+
+	while (it != ite)
+	{
+		srv->endConnection(it->second.getFd());
+		it++;
+	}
+}
+
+void	shutdownServer(int sigId)
+{
+	if (sigId == SIGQUIT || sigId == SIGINT)
+	{
+		Server *tmp;
+		tmp = (Server *)data;
+		deleteAllUsers(tmp, tmp->getUsers());
+		if (tmp->getAI() != NULL)
+			freeaddrinfo(tmp->getAI());
+		if (tmp->getListener() != -1)
+			close(tmp->getListener());
+		tmp->~Server();
+		exit (0);
+	}
+}
 
 int main(int ac, char **av)
 {
@@ -20,7 +50,9 @@ int main(int ac, char **av)
 			throw Server::badArgumentsCountException();
 
 		Server ircServer;
-
+		signal(SIGQUIT, &shutdownServer);
+		signal(SIGINT, &shutdownServer);
+		data = (void *)&ircServer;
 		ircServer.launchServer(av[1], av[2]);
 	}
 	catch(const std::exception& e)
