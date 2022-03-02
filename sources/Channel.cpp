@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:09:45 by psemsari          #+#    #+#             */
-/*   Updated: 2022/02/28 15:22:55 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:02:48 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,27 @@ bool Channel::getModeK()
 	return (_mode_k);
 }
 
+std::string Channel::getModes()
+{
+	std::string modes;
+
+	if (_mode_i)
+		modes += "i";
+	if (_mode_k)
+		modes += "k";
+	return ("+" + modes);
+}
+
+std::string Channel::getPass()
+{
+	return (_pass);
+}
+
+void Channel::setPass(std::string pass)
+{
+	_pass = pass;
+}
+
 //set
 
 void Channel::setName(std::string name)
@@ -77,6 +98,11 @@ bool Channel::addToChannel(User *user, std::string pass = "")
 		return (1);
 	_users.push_back(user);
 	return (0);
+}
+
+void Channel::addToInvite(User *user)
+{
+	_invite.push_back(user);
 }
 
 void Channel::removeFromChannel(User *user)
@@ -110,4 +136,19 @@ std::string Channel::usersFormat()
 		ret += " " + (*it)->getNick();
 	}
 	return ret;
+}
+
+bool Channel::inList(User *user)
+{
+	Channel::users_list::iterator it = _invite.begin();
+	Channel::users_list::iterator ite = _invite.end();
+	for (; it != ite; it++)
+	{
+		if ((*it)->getNick() == user->getNick())
+		{
+			_invite.remove(user);
+			return (true);
+		}
+	}
+	return (false);
 }

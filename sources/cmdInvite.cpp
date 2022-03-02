@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:12:58 by psemsari          #+#    #+#             */
-/*   Updated: 2022/02/23 15:53:38 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:00:29 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	Command::_invite(std::stringstream& completeCommand, User& user){
 		sendCommand(user, ERRCODE_NEEDMOREPARAMS, ERR_NEEDMOREPARAMS(_type));
 	sendCommand(user, RPLCODE_INVITING, RPL_INVITING(channel, target));
 	userToInvite = user.getServer().getUser(target);
-	user.getChannel(channel)->addToChannel(userToInvite);
-	sendDirect(*userToInvite, PONG, ":" + user.getNick() + " " + completeCommand.str());
+	user.getChannel(channel)->addToInvite(userToInvite);
+	sendDirect(*userToInvite, PONG, ":" + user.getNick() + " " + completeCommand.str() + "\r\n");
 }

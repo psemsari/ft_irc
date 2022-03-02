@@ -14,6 +14,7 @@
 # define COMMAND_HPP
 
 # include "User.hpp"
+# include "Channel.hpp"
 # define NB_COMMAND 21 //add if command
 # define EOT_CODE 4
 
@@ -296,6 +297,7 @@
 # define RPL_YOURESERVICE(servicename) (":You are service " + servicename + "\r\n")
 
 class User;
+class Channel;
 
 class Command
 {
@@ -338,6 +340,12 @@ class Command
 		void		_notice(std::stringstream& completeCommand, User& user);
 		void		_topic(std::stringstream& completeCommand, User& user);
 		void		_invite(std::stringstream& completeCommand, User& user);
+
+		void		_sendGetMode(User& user, Channel *channel);
+		void		_channel_i(std::stringstream& completeCommand, User& user,
+					Channel *channel, bool value);
+		void		_channel_k(std::stringstream& completeCommand, User& user,
+					Channel *channel, bool value);
 };
 
 #endif
