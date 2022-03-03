@@ -6,7 +6,7 @@
 #    By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/02 12:49:10 by bemoreau          #+#    #+#              #
-#    Updated: 2022/03/02 16:57:46 by bemoreau         ###   ########.fr        #
+#    Updated: 2022/03/03 12:11:25 by bemoreau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS =		main.cpp							\
 			Channel.cpp							\
 			cmdPass.cpp							\
 			cmdNick.cpp							\
+			cmdNames.cpp							\
 			cmdCap.cpp							\
 			cmdMode.cpp							\
 			cmdJoin.cpp							\
@@ -49,7 +50,6 @@ SRCS =		main.cpp							\
 			cmdMotd.cpp							\
 			cmdList.cpp							\
 			cmdKill.cpp             \
-			cmdKick.cpp							\
 			cmdWho.cpp							\
 			cmdWhois.cpp            \
 			cmdNotice.cpp						\
