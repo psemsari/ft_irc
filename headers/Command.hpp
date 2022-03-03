@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:17 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 18:25:54 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 01:42:48 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,6 @@ class Command
 
 		void    printUserData(User& user, User *target);
 		bool	findByUsername(User& user, std::string name, bool oper);
-		void    listUsersFromChannel(User usr, std::map<int, User> users, std::string chan, bool oper);
 		bool	findNicknameOccurence(User& user, std::map<int, User> users, bool oper, std::string mask);
 		void    showAllUsers(User usr, std::map<int, User> users, bool oper);
 		void	launchCommand(std::stringstream& completeCommand, User& user);

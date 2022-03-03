@@ -100,40 +100,6 @@ std::string findByChannel(User *u1, std::string mask)
 	return (ret);
 }
 
-void    Command::showAllUsers(User usr, std::map<int, User> users, bool oper)
-{
-	std::map<int, User>::iterator it = users.begin();
-	std::map<int, User>::iterator ite = users.end();
-
-	while (it != ite)
-	{
-		if ((oper == false || it->second.getMode('o') == true) && it->second.getMode('i') == false)
-			sendCommand(usr, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(&(it->second))));
-		it++;
-	}
-}
-
-void    Command::listUsersFromChannel(User usr, std::map<int, User> users, std::string chann, bool oper)
-{
-	std::map<int, User>::iterator it = users.begin();
-	std::map<int, User>::iterator ite = users.end();
-
-	(void)oper;
-	std::cout << "Oh je rentre la\n";
-	User *tmp;
-	while (it != ite)
-	{
-		tmp  = &(it->second);
-		std::cout << "name: "<< tmp->getNick() << std::endl;
-		if ((findByChannel(tmp, chann).empty() == false))// && (oper == false || tmp->getMode('o') == true) && (tmp->getMode('i') == false || (findByChannel(&usr, chann).empty() == false)))
-		{
-			std::cout << "g trouve" << std::endl;
-			sendDirect(usr, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(tmp)));
-		}
-		it++;
-	}
-}
-
 bool    Command::findNicknameOccurence(User& user, std::map<int, User> users, bool oper, std::string mask)
 {
 	std::map<int, User>::iterator it = users.begin();
@@ -143,7 +109,6 @@ bool    Command::findNicknameOccurence(User& user, std::map<int, User> users, bo
 		if (it->second.getNick() == mask)
 			if ((oper == false || user.getMode('o') == true) && user.getMode('i') == false)
 			{
-				sendCommand(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(findByNickname(&user, mask))));
 				return true;
 			}
 		it++;
@@ -176,11 +141,51 @@ void	Command::_who(std::stringstream& completeCommand, User& user) {
 	else
 	{
 		if (findByChannel(&user, mask).empty() == false)
-			listUsersFromChannel(user, user.getServer().getUsers(), mask, o);
-		else if ((findNicknameOccurence(user, user.getServer().getUsers(), o, mask)) == true);
-		else if ((findByUsername(user, mask, o)) == true);
+		{
+			std::map<int, User> temp = user.getServer().getUsers();
+			std::map<int, User>::iterator it = temp.begin();
+			std::map<int, User>::iterator ite = temp.end();
+
+			while (it != ite)
+			{
+				if ((findByChannel(&(it->second), mask).empty() == false) && (o == false || it->second.getMode('o') == true) && (it->second.getMode('i') == false || (findByChannel(&user, mask).empty() == false)))
+					sendDirect(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(&(it->second))));
+				it++;
+			}
+		}
+		else if ((findNicknameOccurence(user, user.getServer().getUsers(), o, mask)) == true)
+		{
+			sendDirect(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(findByNickname(&user, mask))));
+		}
+		else if ((findByUsername(user, mask, o)) == true)
+		{
+			std::map<int, User> tmp = user.getServer().getUsers();
+			std::map<int, User>::iterator it = tmp.begin();
+			std::map<int, User>::iterator ite = tmp.end();
+			while (it != ite)
+			{
+				if (it->second.getUsername() == mask)
+					if ((o == false || it->second.getMode('o') == true) && user.getMode('i') == false)
+						sendCommand(user, RPLCODE_ENDOFWHO, RPL_ENDOFWHO(createUserDataBuff(&(it->second))));
+				it++;
+			}
+		}
 		else if (mask == SERV_NAME)
-			showAllUsers(user, user.getServer().getUsers(), o);
+		{
+			std::map<int, User> tmp = user.getServer().getUsers();
+			std::map<int, User>::iterator it = tmp.begin();
+			std::map<int, User>::iterator ite = tmp.end();
+
+			std::cout << "Ouai !";
+			while (it != ite)
+			{
+				if ((o == false || it->second.getMode('o') == true) && it->second.getMode('i') == false)
+					sendCommand(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(&(it->second))));
+				it++;
+			}
+		}
+		else
+			std::cout << "AH NON !" << std::endl;
 		sendCommand(user, RPLCODE_ENDOFWHO, RPL_ENDOFWHO(user.getNick()));
 	}
 }
