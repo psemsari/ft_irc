@@ -22,7 +22,7 @@ include sources.mk
 SRCDIR				:= sources
 INCDIR				:= headers
 BUILDDIR			:= obj
-TARGETDIR			:= objects
+TARGETDIR			:= .
 SRCEXT				:= cpp
 DEPEXT				:= d
 OBJEXT				:= o
@@ -84,7 +84,7 @@ clean:
 
 # Full Clean, Objects and Binaries
 fclean: clean
-	@$(RM) -rf $(TARGETDIR)
+	@$(RM) -rf $(TARGET)
 
 
 # Pull in dependency info for *existing* .o files

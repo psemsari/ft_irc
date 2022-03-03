@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:24:04 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/02 12:48:22 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:30:20 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	Command::_nick(std::stringstream& completeCommand, User& user) {
 		return;
 	if (user.getServer().isNicknameKilled(nickname)== true)
 	{
-		user.getServer().endConnection(user.getFd());
+		user.setIsEnded(true);
 		return ;
 	}
 	if (user.getServer().findByNickName(user, nickname) != NULL)// && (nickname != user.getNick()))

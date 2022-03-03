@@ -42,7 +42,8 @@ void	Command::_kill(std::stringstream& completeCommand, User& user)
         sendCommand(user, ERRCODE_NOSUCHNICK, ERR_NOSUCHNICK(nick));
         return ;
     }
-    sendDirect(*target, PONG, "You have been killed because: " + message);
-    user.getServer().setUnavalaibleName(nick);
+    // message.erase(0, 1);
+    sendDirect(*target, PONG, ":"+ user.getNick() +" NOTICE " + target->getNick() + " You have been killed because: " + message + "\r\n");
+	user.getServer().setUnavalaibleName(nick);
     target->getServer().endConnection(target->getFd());
 }

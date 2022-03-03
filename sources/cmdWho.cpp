@@ -17,9 +17,12 @@ std::string createUserDataBuff(User *usr)
 {
 	std::string buff;
 
-	buff += ':';
+	buff += "~u";
+	buff += " ";
+	buff += "localhost";
+	buff += " ";
 	buff += SERV_NAME;
-	buff += ' ';
+	buff += " ";
 	buff += usr->getNick();
 	buff += " : ";
 	buff += usr->getRealname();
@@ -73,10 +76,7 @@ bool Command::findByUsername(User& user, std::string name, bool oper)
 	{
 		if (it->second.getUsername() == name)
 			if ((oper == false || it->second.getMode('o') == true) && user.getMode('i') == false)
-			{
-				sendCommand(user, RPLCODE_ENDOFWHO, RPL_ENDOFWHO(createUserDataBuff(&(it->second))));
 				ret = true;
-			}
 		it++;
 	}
 	return ret;
@@ -149,13 +149,13 @@ void	Command::_who(std::stringstream& completeCommand, User& user) {
 			while (it != ite)
 			{
 				if ((findByChannel(&(it->second), mask).empty() == false) && (o == false || it->second.getMode('o') == true) && (it->second.getMode('i') == false || (findByChannel(&user, mask).empty() == false)))
-					sendDirect(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(&(it->second))));
+					sendCommand(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(&(it->second))));
 				it++;
 			}
 		}
 		else if ((findNicknameOccurence(user, user.getServer().getUsers(), o, mask)) == true)
 		{
-			sendDirect(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(findByNickname(&user, mask))));
+			sendCommand(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(findByNickname(&user, mask))));
 		}
 		else if ((findByUsername(user, mask, o)) == true)
 		{
