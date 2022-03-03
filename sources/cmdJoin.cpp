@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:23:09 by psemsari          #+#    #+#             */
-/*   Updated: 2022/02/28 15:21:38 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:05:31 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	Command::_join(std::stringstream& completeCommand, User& user) {
 	std::list<std::string> toJoin, pass;
 	std::stringstream stream;
 	std::string str, word;
+	bool invite = true;
 
 	completeCommand >> str;
 	stream.str(str);
@@ -45,7 +46,14 @@ void	Command::_join(std::stringstream& completeCommand, User& user) {
 			channel = user.getServer().getChannel(toJoin.front());
 			channel->setName(toJoin.front());
 		}
-		if (pass.empty() || !channel->addToChannel(&user, pass.front()))//revoir
+
+		if (channel->getModeI() && !channel->inList(&user))
+		{
+			sendCommand(user, ERRCODE_INVITEONLYCHAN, ERR_INVITEONLYCHAN(channel->getName()));
+			invite = false;
+		}
+
+		if ((pass.empty() || !channel->addToChannel(&user, pass.front())) && invite)//revoir
 		{
 			user.addChannel(channel);
 			channel->addToChannel(&user);

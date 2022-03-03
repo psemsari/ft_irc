@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:05:02 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/02 12:51:14 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 11:24:43 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ class Channel
 		std::string getTopic();
 		bool getModeI();
 		bool getModeK();
+		std::string getModes();
+		std::string getPass();
 		void setName(std::string name);
 		void setModeI(bool mode);
 		void setModeK(bool mode);
+		void setPass(std::string pass);
 		void addToChannel(User *user);
 		bool addToChannel(User *user, std::string pass);
 		void addToInvite(User *user);
@@ -45,6 +48,7 @@ class Channel
 		void removeFromChannel(User *user);
 		void sendToChannel(std::string str, Command &command, int notsend);
 		std::string usersFormat();
+		bool inList(User *user);
 
 	private:
 		bool		_mode_i;

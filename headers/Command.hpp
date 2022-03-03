@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:17 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/03 01:42:48 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 11:25:24 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +296,7 @@
 # define RPL_YOURESERVICE(servicename) (":You are service " + servicename + "\r\n")
 
 class User;
+class Channel;
 
 class Command
 {
@@ -338,6 +339,12 @@ class Command
 		void		_topic(std::stringstream& completeCommand, User& user);
 		void		_invite(std::stringstream& completeCommand, User& user);
 		void		_die(std::stringstream& completeCommand, User& user);
+
+		void		_sendGetMode(User& user, Channel *channel);
+		void		_channel_i(std::stringstream& completeCommand, User& user,
+					Channel *channel, bool value);
+		void		_channel_k(std::stringstream& completeCommand, User& user,
+					Channel *channel, bool value);
 };
 
 #endif
