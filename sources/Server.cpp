@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:48:51 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 12:48:52 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:55:46 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 /************************************************************/
 Server::Server(void) {
 
+	_ai = NULL;
 	FD_ZERO(&_masterFds);
 	FD_ZERO(&_readFds);
 	initHints();
@@ -32,6 +33,16 @@ Server::~Server(void) {
 /*					Getters/Setters							*/
 /************************************************************/
 /*						Getters								*/
+
+int				 Server::getListener()
+{
+	return (_listener);
+}
+
+struct addrinfo *Server::getAI()
+{
+	return (_ai);
+}
 
 std::map<int, User> Server::getUsers(void)
 {
@@ -152,6 +163,7 @@ void	Server::bindToFirst(void) {
 		exit(FAILURE_BINDING);
 	}
 	freeaddrinfo(_ai);
+	_ai = NULL;
 }
 
 void	Server::tryListen(void) {

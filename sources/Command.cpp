@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:47:07 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 12:47:09 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:18:19 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		&Command::_who,
 		&Command::_whois,
 		&Command::_topic,
-		&Command::_invite
+		&Command::_invite,
+		&Command::_die
 	};
 	std::string commandId[NB_COMMAND] = {
 		"PASS",
@@ -115,7 +116,8 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		"WHO",
 		"WHOIS",
 		"TOPIC",
-		"INVITE"
+		"INVITE",
+		"die",
 	};
 
 	int	i;

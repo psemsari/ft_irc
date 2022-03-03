@@ -28,6 +28,8 @@ bool findByNickName(User& user, std::string name)
 
 void    Command::printUserData(User& user, User *target)
 {
+    if (!target)
+        return;
     std::string nick = target->getNick();
     std::string username = target->getUsername();
     std::string host = SERV_NAME;
@@ -53,15 +55,11 @@ void    Command::printUserData(User& user, User *target)
     }
     if (target->getMode('o') == true)
         sendCommand(user, RPLCODE_WHOISOPERATOR, RPL_WHOISOPERATOR(nick));
-    //    sendCommand(user, RPLCODE_WHOISIDLE, RPL_WHOISIDLE()) Je sais pas, signon relou mais le reste ez
     sendCommand(user, RPLCODE_ENDOFWHOIS, RPL_ENDOFWHOIS(nick));
 }
 
 void	Command::_whois(std::stringstream& completeCommand, User& user) {
 
-    //Add idle ?
-
-    //(void)completeCommand; (void)user;
 	std::string mask;
     std::string comma;
     

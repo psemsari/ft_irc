@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Command.hpp                                       :+:      :+:    :+:   */
+/*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdidelot <fdidelot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 21:44:55 by fdidelot          #+#    #+#             */
-/*   Updated: 2021/12/16 18:10:47 by fdidelot         ###   ########.fr       */
+/*   Created: 2022/03/02 12:51:17 by bemoreau          #+#    #+#             */
+/*   Updated: 2022/03/03 11:25:24 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define COMMAND_HPP
 
 # include "User.hpp"
-# include "Channel.hpp"
-# define NB_COMMAND 21 //add if command
+# define NB_COMMAND 22 //add if command
 # define EOT_CODE 4
 
 // Error codes
@@ -308,7 +307,6 @@ class Command
 
 		void    printUserData(User& user, User *target);
 		bool	findByUsername(User& user, std::string name, bool oper);
-		void    listUsersFromChannel(User usr, std::map<int, User> users, std::string chan, bool oper);
 		bool	findNicknameOccurence(User& user, std::map<int, User> users, bool oper, std::string mask);
 		void    showAllUsers(User usr, std::map<int, User> users, bool oper);
 		void	launchCommand(std::stringstream& completeCommand, User& user);
@@ -340,6 +338,7 @@ class Command
 		void		_notice(std::stringstream& completeCommand, User& user);
 		void		_topic(std::stringstream& completeCommand, User& user);
 		void		_invite(std::stringstream& completeCommand, User& user);
+		void		_die(std::stringstream& completeCommand, User& user);
 
 		void		_sendGetMode(User& user, Channel *channel);
 		void		_channel_i(std::stringstream& completeCommand, User& user,
