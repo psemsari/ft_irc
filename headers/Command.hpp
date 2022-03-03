@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:17 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/03 11:25:24 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:03:49 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,6 @@ class Command
 		Command(std::string commandName = "Unknown");
 		~Command(void);
 
-		void    printUserData(User& user, User *target);
 		bool	findByUsername(User& user, std::string name, bool oper);
 		bool	findNicknameOccurence(User& user, std::map<int, User> users, bool oper, std::string mask);
 		void    showAllUsers(User usr, std::map<int, User> users, bool oper);
