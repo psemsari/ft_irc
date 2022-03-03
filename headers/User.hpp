@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:33 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 12:51:34 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 15:19:08 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ class User
 		bool		getCommandEnd(void) const;
 		int			getFd(void) const;
 		std::string	getNick(void) const;
+		std::string getNickHost(void) const;
 		std::string	getRealname(void) const;
 		std::string	getUsername(void) const;
 		std::string	getCommandBuf(void) const;

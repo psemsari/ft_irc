@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:35:31 by psemsari          #+#    #+#             */
-/*   Updated: 2022/02/28 13:14:29 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/03 15:25:47 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	Command::_part(std::stringstream& completeCommand, User& user)
 			channeltofind->removeFromChannel(&user);
 			if (channeltofind->getList().empty())
 			{
-				sendCommand(user, PONG, ":" + user.getNick() + " PART " + toPart.front() + "\r\n");
-				user.getServer().eraseChannel(toPart.front()); //segfault avec part et 2 clients
+				sendCommand(user, PONG, ":" + user.getNickHost() + " PART " + toPart.front() + "\r\n");
+				user.getServer().eraseChannel(toPart.front());
 			}
 			else
 			{
-				channeltofind->sendToChannel(":" + user.getNick() + " PART " + toPart.front() + "\r\n", *this, user.getFd());
-				sendCommand(user, PONG, ":" + user.getNick() + " PART " + toPart.front() + "\r\n");
+				channeltofind->sendToChannel(":" + user.getNickHost() + " PART " + toPart.front() + "\r\n", *this, user.getFd());
+				sendCommand(user, PONG, ":" + user.getNickHost() + " PART " + toPart.front() + "\r\n");
 			}
 		}
 		toPart.pop_front();

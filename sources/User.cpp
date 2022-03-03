@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:49:03 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 12:49:03 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 15:46:19 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,11 @@ std::string User::getCommandBuf(void) const {
 int		User::getFd(void) const {
 
 	return (_fd);
+}
+
+std::string User::getNickHost(void) const {
+
+	return (_nick + "!~u@localhost");
 }
 
 std::string User::getNick(void) const {
@@ -337,7 +342,6 @@ void	User::execCommand(std::string commandLine) {
 	std::stringstream	lineStream(commandLine);
 
 	lineStream >> commandName;
-	std::cout << "lS = " << lineStream.str() << std::endl << "commandName = " << commandName << std::endl;;
 
 	Command currentCommand(commandName);
 

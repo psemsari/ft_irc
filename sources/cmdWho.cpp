@@ -120,7 +120,7 @@ void	Command::_who(std::stringstream& completeCommand, User& user) {
 
 	std::string mask;
 	std::string tmp;
-	
+
 	completeCommand >> mask >> tmp;
 	bool o = (tmp == "o") ? true : false;
 	if (mask.empty() == true || mask == "0")
@@ -176,7 +176,6 @@ void	Command::_who(std::stringstream& completeCommand, User& user) {
 			std::map<int, User>::iterator it = tmp.begin();
 			std::map<int, User>::iterator ite = tmp.end();
 
-			std::cout << "Ouai !";
 			while (it != ite)
 			{
 				if ((o == false || it->second.getMode('o') == true) && it->second.getMode('i') == false)
@@ -184,8 +183,6 @@ void	Command::_who(std::stringstream& completeCommand, User& user) {
 				it++;
 			}
 		}
-		else
-			std::cout << "AH NON !" << std::endl;
 		sendCommand(user, RPLCODE_ENDOFWHO, RPL_ENDOFWHO(user.getNick()));
 	}
 }

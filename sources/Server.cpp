@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:48:51 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 16:55:46 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 15:54:07 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,6 @@ void	Server::newConnection(void) {
 	socklen_t				addrLen;
 	struct sockaddr_storage	remoteAddr;
 	int						newFd;
-	char					remoteIP[INET6_ADDRSTRLEN];
 
 	addrLen = sizeof remoteAddr;
 	newFd = accept(_listener, (struct sockaddr *)&remoteAddr, &addrLen);
@@ -212,22 +211,11 @@ void	Server::newConnection(void) {
 		_users[newFd] = User(newFd, this);
 		if (newFd > _fdMax)
 			_fdMax = newFd;
-		std::cout	<< "ircserv: new connection from "
-					<< 	inet_ntop(remoteAddr.ss_family, getInAddr((struct sockaddr*)&remoteAddr),
-									remoteIP, INET6_ADDRSTRLEN)
-					<< " on socket "
-					<< newFd
-					<< std::endl;
 	}
 }
 
 void	Server::endConnection(int currentSocket) {
 
-	if (_nbytes == 0)
-		std::cout << "ircserv: socket " << currentSocket << " hung up" << std::endl;
-	else
-		perror("recv");
-	std::cout << "Delete: " << _users[currentSocket].getNick() << std::endl;
 	_users.erase(currentSocket);
 	close(currentSocket);
 	FD_CLR(currentSocket, &_masterFds);
@@ -263,7 +251,6 @@ void	Server::launchServer(char* port, char* password) {
 					_nbytes = recv(_currentClient, _buf, sizeof(_buf), 0);
 					if (_nbytes < 1)
 					{
-						std::cout << "mais pas la" << std::endl;
 						endConnection(_currentClient);
 					}
 					else

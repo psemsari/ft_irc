@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+         #
+#    By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/02 12:49:10 by bemoreau          #+#    #+#              #
-#    Updated: 2022/03/02 16:57:46 by bemoreau         ###   ########.fr        #
+#    Updated: 2022/03/03 14:06:00 by psemsari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -110,7 +110,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS) $(CXXFLAGS) -g3
+	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS) $(CXXFLAGS)
 
 $(PATH_OBJS)%.o: %.cpp
 	$(CXX) -o $@ -c $< $(CXXFLAGS) $(CPPFLAGS)
