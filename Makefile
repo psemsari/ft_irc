@@ -1,131 +1,123 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/02 12:49:10 by bemoreau          #+#    #+#              #
-#    Updated: 2022/03/03 14:06:00 by psemsari         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# Generated with GenMake
+# Arthur-TRT - https://github.com/arthur-trt/genMake
+# genmake vv1.1.4
 
-#-----------------------------------------------#
-################# PROG_NAME #####################
-#-----------------------------------------------#
-NAME = ircserv
-
-#-----------------------------------------------#
-################## COMPILO ######################
-#-----------------------------------------------#
-CXX = clang++
-
-#-----------------------------------------------#
-################### PATHS #######################
-#-----------------------------------------------#
-PATH_HEAD	=	./headers/
-PATH_SRCS	=	./sources/
-PATH_OBJS	=	./objects/
-
-#-----------------------------------------------#
-################## SOURCES ######################
-#-----------------------------------------------#
-SRCS =		main.cpp							\
-			Server.cpp							\
-			Command.cpp							\
-			User.cpp							\
-			Channel.cpp							\
-			cmdPass.cpp							\
-			cmdNick.cpp							\
-			cmdCap.cpp							\
-			cmdMode.cpp							\
-			cmdJoin.cpp							\
-			cmdPing.cpp							\
-			cmdPrivmsg.cpp						\
-			cmdUser.cpp							\
-			cmdPart.cpp							\
-			cmdQuit.cpp							\
-			cmdOper.cpp							\
-			cmdMotd.cpp							\
-			cmdList.cpp							\
-			cmdKill.cpp             \
-			cmdKick.cpp							\
-			cmdWho.cpp							\
-			cmdWhois.cpp            \
-			cmdNotice.cpp						\
-			cmdTopic.cpp						\
-			cmdInvite.cpp						\
-			cmdDie.cpp
-
-vpath %.cpp $(PATH_SRCS)
-
-#-----------------------------------------------#
-################## HEADERS ######################
-#-----------------------------------------------#
-HEADERS		=	Server.hpp						\
-				Command.hpp						\
-				User.hpp						\
-				Channel.hpp
-
-vpath %.hpp $(PATH_HEAD)
-
-#-----------------------------------------------#
-################## OBJECTS ######################
-#-----------------------------------------------#
-OBJS = $(addprefix $(PATH_OBJS), $(SRCS:.cpp=.o))
-
-
-#-----------------------------------------------#
-################### FLAGS #######################
-#-----------------------------------------------#
-CXXFLAGS =	-Wall -Wextra -Werror -std=c++98
-ifeq ($(d), 0)
-CXXFLAGS	+= -g3
-CXXFLAGS	+= -Wpadded
-CXXFLAGS	+= -fsanitize=address,undefined
-endif
-ifeq ($(d), 1)
-	CXXFLAGS	+= -g
+#Compiler and Linker
+CC					:= clang
+CXX					:= c++
+ifeq ($(shell uname -s),Darwin)
+	CC				:= gcc
+	CXX				:= g++
 endif
 
-#-----------------------------------------------#
-################# CPPFLAGS ######################
-#-----------------------------------------------#
-CPPFLAGS	+=	-I $(PATH_HEAD)					\
-# Multiple header directories
-#CPPFLAGS	+= $(foreach DIR, $(HDRS_DIRS), $(addprefix -I , $(DIR)))
-#
+#The Target Binary Program
+TARGET				:= ircserv
+TARGET_BONUS		:= ircserv-bonus
 
-#-----------------------------------------------#
-################# LIBRARIES #####################
-#-----------------------------------------------#
-ifeq ($(d), 0)
-	LDFLAGS		+= -fsanitize=address,undefined
-endif
+BUILD				:= release
 
-#-----------------------------------------------#
-################### RULES #######################
-#-----------------------------------------------#
+include sources.mk
 
-all: $(NAME)
+#The Directories, Source, Includes, Objects, Binary and Resources
+SRCDIR				:= sources
+INCDIR				:= headers
+BUILDDIR			:= obj
+TARGETDIR			:= objects
+SRCEXT				:= cpp
+DEPEXT				:= d
+OBJEXT				:= o
 
-$(NAME): $(OBJS)
-	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS) $(CXXFLAGS)
+OBJECTS				:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
+OBJECTS_BONUS		:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES_BONUS:.$(SRCEXT)=.$(OBJEXT)))
 
-$(PATH_OBJS)%.o: %.cpp
-	$(CXX) -o $@ -c $< $(CXXFLAGS) $(CPPFLAGS)
+#Flags, Libraries and Includes
+cflags.release		:= -Wall -Werror -Wextra
+cflags.valgrind		:= -Wall -Werror -Wextra -DDEBUG -ggdb
+cflags.debug		:= -Wall -Werror -Wextra -DDEBUG -ggdb -fsanitize=address -fno-omit-frame-pointer
+CFLAGS				:= $(cflags.$(BUILD))
+CPPFLAGS			:= $(cflags.$(BUILD)) -std=c++98
 
-$(OBJS): Makefile $(HEADERS) | $(PATH_OBJS)
+lib.release			:= 
+lib.valgrind		:= $(lib.release)
+lib.debug			:= $(lib.release) -fsanitize=address -fno-omit-frame-pointer
+LIB					:= $(lib.$(BUILD))
 
-$(PATH_OBJS):
-	mkdir $@
+INC					:= -I$(INCDIR) -I/usr/local/include
+INCDEP				:= -I$(INCDIR)
 
-clean:
-	rm -rf $(PATH_OBJS)
+# Colors
+C_RESET				:= \033[0m
+C_PENDING			:= \033[0;36m
+C_SUCCESS			:= \033[0;32m
 
-fclean: clean
-	rm -rf $(NAME)
+# Multi platforms
+ECHO				:= echo
 
+# Escape sequences (ANSI/VT100)
+ES_ERASE			:= "\033[1A\033[2K\033[1A"
+ERASE				:= $(ECHO) $(ES_ERASE)
+
+GREP				:= grep --color=auto --exclude-dir=.git
+NORMINETTE			:= norminette `ls`
+
+# Default Make
+all: $(TARGETDIR)/$(TARGET)
+	@$(ERASE)
+	@$(ECHO) "$(TARGET)\t\t[$(C_SUCCESS)✅$(C_RESET)]"
+	@$(ECHO) "$(C_SUCCESS)All done, compilation successful! 👌 $(C_RESET)"
+
+# Bonus rule
+bonus: CPPFLAGS += -DBONUS
+bonus: $(TARGETDIR)/$(TARGET_BONUS)
+	@$(ERASE)
+	@$(ECHO) "$(TARGET)\t\t[$(C_SUCCESS)✅$(C_RESET)]"
+	@$(ECHO) "$(C_SUCCESS)All done, compilation successful with bonus! 👌 $(C_RESET)"
+
+# Remake
 re: fclean all
 
-.PHONY: all clean fclean re
+# Clean only Objects
+clean:
+	@$(RM) -f *.d *.o
+	@$(RM) -rf $(BUILDDIR)
+
+# Full Clean, Objects and Binaries
+fclean: clean
+	@$(RM) -rf $(TARGETDIR)
+
+# Pull in dependency info for *existing* .o files
+-include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
+
+# Link
+$(TARGETDIR)/$(TARGET): $(OBJECTS)
+	@mkdir -p $(TARGETDIR)
+	$(CXX) -o $(TARGETDIR)/$(TARGET) $^ $(LIB)
+
+# Link Bonus
+$(TARGETDIR)/$(TARGET_BONUS): $(OBJECTS_BONUS)
+	@mkdir -p $(TARGETDIR)
+	$(CXX) -o $(TARGETDIR)/$(TARGET) $^ $(LIB)
+
+$(BUILDIR):
+	@mkdir -p $@
+
+# Compile
+$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
+	@mkdir -p $(dir $@)
+	@$(ECHO) "$(TARGET)\t\t[$(C_PENDING)⏳$(C_RESET)]"
+	$(CXX) $(CPPFLAGS) $(INC) -c -o $@ $<
+	@$(CXX) $(CPPFLAGS) $(INCDEP) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT)
+	@$(ERASE)
+	@$(ERASE)
+	@cp -f $(BUILDDIR)/$*.$(DEPEXT) $(BUILDDIR)/$*.$(DEPEXT).tmp
+	@sed -e 's|.*:|$(BUILDDIR)/$*.$(OBJEXT):|' < $(BUILDDIR)/$*.$(DEPEXT).tmp > $(BUILDDIR)/$*.$(DEPEXT)
+	@sed -e 's/.*://' -e 's/\\$$//' < $(BUILDDIR)/$*.$(DEPEXT).tmp | fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $(BUILDDIR)/$*.$(DEPEXT)
+	@rm -f $(BUILDDIR)/$*.$(DEPEXT).tmp
+
+
+
+norm:
+	@$(NORMINETTE) | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1 || true
+
+# Non-File Targets
+.PHONY: all re clean fclean norm bonus

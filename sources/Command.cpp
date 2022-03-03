@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:47:07 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 17:18:19 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 12:11:05 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 
 	void	(Command::*command[NB_COMMAND])(std::stringstream&, User&) = {
 		&Command::_pass,
+		&Command::_names,
 		&Command::_nick,
 		&Command::_user,
 		&Command::_cap,
@@ -90,15 +91,16 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		&Command::_motd,
 		&Command::_list,
 		&Command::_kill,
-		&Command::_kick,
 		&Command::_who,
 		&Command::_whois,
+		&Command::_notice,
 		&Command::_topic,
 		&Command::_invite,
 		&Command::_die
 	};
 	std::string commandId[NB_COMMAND] = {
 		"PASS",
+		"NAMES",
 		"NICK",
 		"USER",
 		"CAP",
@@ -112,9 +114,9 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		"motd",
 		"LIST",
 		"kill",
-		"KICK",
 		"WHO",
 		"WHOIS",
+		"NOTICE",
 		"TOPIC",
 		"INVITE",
 		"die",
