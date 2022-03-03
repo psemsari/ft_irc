@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:05:02 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/03 11:24:43 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/03 13:04:46 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ class Channel
 		void setModeI(bool mode);
 		void setModeK(bool mode);
 		void setPass(std::string pass);
-		void addToChannel(User *user);
-		bool addToChannel(User *user, std::string pass);
+		bool addToChannel(User *user, std::list<std::string> &pass);
 		void addToInvite(User *user);
 		void addOpToChannel(User *user);
 		void removeFromChannel(User *user);

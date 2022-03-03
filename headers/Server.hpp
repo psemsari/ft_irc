@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:27 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 17:03:00 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 15:34:50 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_HPP
 # define SERVER_HPP
 
-# include <signal.h> // signal
+# include <csignal> // signal
 # include <sys/types.h> // getaddrinfo
 # include <sys/socket.h> // getaddrinfo
 # include <netdb.h> // getaddrinfo
@@ -24,14 +24,14 @@
 # include <cstdlib> // exit
 # include <cstring> // bzero
 # include <unistd.h> // close
-# include <stdio.h> // perror
+# include <cstdio> // perror
 # include <sstream> // flefleche
 # include <map> // map
 # include <ctime> // time()
 
 
 // getaddrinfo, bind, select, accept
-# include <stdlib.h>
+# include <cstdlib>
 # include <string>
 # include <unistd.h>
 # include <sys/types.h>

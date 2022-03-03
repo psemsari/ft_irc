@@ -6,13 +6,13 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:09:45 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/02 17:02:48 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/03 13:04:47 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Channel.hpp"
 
-Channel::Channel(std::string name) : _mode_k(false), _name(name)
+Channel::Channel(std::string name) : _mode_i(false), _mode_k(false), _name(name), _topic(""), _pass("")
 {
 }
 
@@ -87,17 +87,12 @@ void Channel::setModeK(bool mode)
 
 //others
 
-void Channel::addToChannel(User *user)
+bool Channel::addToChannel(User *user, std::list<std::string> &pass)
 {
+	if (_mode_k && pass.empty() && pass.front() != _pass)
+		return (false);
 	_users.push_back(user);
-}
-
-bool Channel::addToChannel(User *user, std::string pass = "")
-{
-	if (_mode_k == true && _pass != pass)
-		return (1);
-	_users.push_back(user);
-	return (0);
+	return (true);
 }
 
 void Channel::addToInvite(User *user)

@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:25:17 by psemsari          #+#    #+#             */
-/*   Updated: 2022/02/21 16:13:21 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/03 15:48:35 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	Command::_privmsg(std::stringstream& completeCommand, User& user){
 	//send((*it)->getFd(), str.c_str(), str.size(), NULL);
 	std::string target;
 	completeCommand >> target;
-	std::cout << "OUTPUT target = " << target << std::endl;
 	if (target[0] == '#')
 	{
 		Channel* chan_ptr = user.getChannel(target);
@@ -30,7 +29,6 @@ void	Command::_privmsg(std::stringstream& completeCommand, User& user){
 	else
 	{
 		User *user_ptr = user.getServer().getUser(target);
-		std::cout << completeCommand.str() << std::endl;
 		if (user_ptr == NULL)
 			sendCommand(user, ERRCODE_NOSUCHNICK, ERR_NOSUCHNICK(target));
 		else
