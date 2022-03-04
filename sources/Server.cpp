@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:48:51 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 13:03:04 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:53:01 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,9 @@ void	Server::initAi(char* port) {
 	if (retGetAddrinfo != SUCCESS)
 	{
 		std::cerr << "ircserv: " << gai_strerror(retGetAddrinfo) << std::endl;
+		if (_ai != NULL)
+			freeaddrinfo(_ai);
+		_ai = NULL;
 		exit (FAILURE_GETADDRINFO);
 	}
 }
@@ -160,9 +163,13 @@ void	Server::bindToFirst(void) {
 	if (_p == NULL)
 	{
 		std::cerr << "ircserv: failed to bind" << std::endl;
+		if (_ai != NULL)
+			freeaddrinfo(_ai);
+		_ai = NULL;
 		exit(FAILURE_BINDING);
 	}
-	freeaddrinfo(_ai);
+	if (_ai != NULL)
+		freeaddrinfo(_ai);
 	_ai = NULL;
 }
 
