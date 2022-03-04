@@ -2,3 +2,9 @@ Verifier que le user soit log a l exec de chaque commande
 
 Quand un user se fait deco il ping -> invalid read / segv / SIGPIPE
 
+VINCENT LE 100
+
+PORT PABON == CACA (PRO BLEME PAIX ET ROR)
+
+MSG vide -> COREDUMP (execCommand-> 0x000)
+en fait non, ligne vide = dump

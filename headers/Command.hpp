@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:17 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/03 16:03:49 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:29:39 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define COMMAND_HPP
 
 # include "User.hpp"
-# define NB_COMMAND 22 //add if command
+# define NB_COMMAND 21 //add if command
 # define EOT_CODE 4
 
 // Error codes
