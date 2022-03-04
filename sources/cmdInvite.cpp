@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:12:58 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/02 17:00:29 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:18:11 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	Command::_invite(std::stringstream& completeCommand, User& user){
 
 	User *userToInvite;
+	Channel *channelToJoin;
 	std::string target;
 	std::string channel;
 
@@ -22,9 +23,33 @@ void	Command::_invite(std::stringstream& completeCommand, User& user){
 	completeCommand >> channel;
 
 	if (target.empty() || channel.empty())
+	{
 		sendCommand(user, ERRCODE_NEEDMOREPARAMS, ERR_NEEDMOREPARAMS(_type));
-	sendCommand(user, RPLCODE_INVITING, RPL_INVITING(channel, target));
+		return ;
+	}
+	channelToJoin = user.getChannel(channel);
 	userToInvite = user.getServer().getUser(target);
-	user.getChannel(channel)->addToInvite(userToInvite);
+	if (!userToInvite)
+	{
+		sendCommand(user, ERRCODE_NOSUCHNICK, ERR_NOSUCHNICK(target));
+		return ;
+	}
+	else if (!channelToJoin)
+	{
+		sendCommand(user, ERRCODE_NOSUCHCHANNEL, ERR_NOSUCHCHANNEL(channel));
+		return ;
+	}
+	else if (!channelToJoin->inChannel(user))
+	{
+		sendCommand(user, ERRCODE_NOTONCHANNEL, ERR_NOTONCHANNEL(channel));
+		return ;
+	}
+	else if (channelToJoin->inList(*userToInvite))
+	{
+		sendCommand(user, ERRCODE_USERONCHANNEL, ERR_USERONCHANNEL(target, channel));
+		return ;
+	}
+	sendCommand(user, RPLCODE_INVITING, RPL_INVITING(channel, target));
+	channelToJoin->addToInvite(userToInvite);
 	sendDirect(*userToInvite, PONG, ":" + user.getNick() + " " + completeCommand.str() + "\r\n");
 }

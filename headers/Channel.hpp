@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:05:02 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/03 13:04:46 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:21:03 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ class Channel
 		void setName(std::string name);
 		void setModeI(bool mode);
 		void setModeK(bool mode);
+		void setTopic(std::string topic);
 		void setPass(std::string pass);
 		bool addToChannel(User *user, std::list<std::string> &pass);
 		void addToInvite(User *user);
@@ -47,7 +48,8 @@ class Channel
 		void removeFromChannel(User *user);
 		void sendToChannel(std::string str, Command &command, int notsend);
 		std::string usersFormat();
-		bool inList(User *user);
+		bool inList(User &user);
+		bool inChannel(User &user);
 
 	private:
 		bool		_mode_i;
