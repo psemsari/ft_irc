@@ -57,10 +57,13 @@ User    *findByNickname(User *user, std::string name)
 	std::map<int, User> tmp = user->getServer().getUsers();
 	std::map<int, User>::iterator it = tmp.begin();
 	std::map<int, User>::iterator ite = tmp.end();
+	
+	User *temp;
 	while (it != ite)
 	{
+		temp =&it->second;
 		if (it->second.getNick() == name)
-			return (&(it->second));
+			return (temp);
 		it++;
 	}
 	return NULL;
@@ -75,7 +78,7 @@ bool Command::findByUsername(User& user, std::string name, bool oper)
 	while (it != ite)
 	{
 		if (it->second.getUsername() == name)
-			if ((oper == false || it->second.getMode('o') == true) && user.getMode('i') == false)
+			if ((oper == false || it->second.getMode('o') == true) && it->second.getMode('i') == false)
 				ret = true;
 		it++;
 	}
@@ -107,7 +110,7 @@ bool    Command::findNicknameOccurence(User& user, std::map<int, User> users, bo
 	while (it != ite)
 	{
 		if (it->second.getNick() == mask)
-			if ((oper == false || user.getMode('o') == true) && user.getMode('i') == false)
+			if ((oper == false || user.getMode('o') == true) && it->second.getMode('i') == false)
 			{
 				return true;
 			}
@@ -155,26 +158,35 @@ void	Command::_who(std::stringstream& completeCommand, User& user) {
 		}
 		else if ((findNicknameOccurence(user, user.getServer().getUsers(), o, mask)) == true)
 		{
-			sendCommand(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(findByNickname(&user, mask))));
+			std::map<int, User> temp = user.getServer().getUsers();
+			std::map<int, User>::iterator it = temp.begin();
+			std::map<int, User>::iterator ite = temp.end();
+			while (it != ite)
+			{
+				if (it->second.getNick() == mask)
+					if ((o == false || it->second.getMode('o') == true) && it->second.getMode('i') == false)
+						sendCommand(user, RPLCODE_WHOREPLY, RPL_WHOREPLY(createUserDataBuff(&(it->second))));
+				it++;
+			}
 		}
 		else if ((findByUsername(user, mask, o)) == true)
 		{
-			std::map<int, User> tmp = user.getServer().getUsers();
-			std::map<int, User>::iterator it = tmp.begin();
-			std::map<int, User>::iterator ite = tmp.end();
+			std::map<int, User> temp = user.getServer().getUsers();
+			std::map<int, User>::iterator it = temp.begin();
+			std::map<int, User>::iterator ite = temp.end();
 			while (it != ite)
 			{
 				if (it->second.getUsername() == mask)
-					if ((o == false || it->second.getMode('o') == true) && user.getMode('i') == false)
+					if ((o == false || it->second.getMode('o') == true) && it->second.getMode('i') == false)
 						sendCommand(user, RPLCODE_ENDOFWHO, RPL_ENDOFWHO(createUserDataBuff(&(it->second))));
 				it++;
 			}
 		}
 		else if (mask == SERV_NAME)
 		{
-			std::map<int, User> tmp = user.getServer().getUsers();
-			std::map<int, User>::iterator it = tmp.begin();
-			std::map<int, User>::iterator ite = tmp.end();
+			std::map<int, User> temp = user.getServer().getUsers();
+			std::map<int, User>::iterator it = temp.begin();
+			std::map<int, User>::iterator ite = temp.end();
 
 			while (it != ite)
 			{

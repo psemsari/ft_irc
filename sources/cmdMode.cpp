@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdMode.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:23:40 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/02 17:09:34 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:27:30 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ void	Command::_mode(std::stringstream& completeCommand, User& user) {
 	}
 	else
 	{
-		user.setMode((*modes.c_str() == '-' ? false : true), modes.c_str());
-		sendCommand(user, RPLCODE_UMODEIS, RPL_UMODEIS(user.getModes()));
+		if (target == user.getNick())
+		{
+			user.setMode((*modes.c_str() == '-' ? false : true), modes.c_str());
+			sendCommand(user, RPLCODE_UMODEIS, RPL_UMODEIS(user.getModes()));
+		}
 	}
 }

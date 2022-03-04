@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:49:03 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 17:31:31 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:43:10 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,6 @@ User::User(int fd, Server* server) :	_userOrNickCmd(false),
 }
 
 User::~User(void) {
-
-	channels_list::iterator it = _channels_list.begin();
-	while (it != _channels_list.end())
-	{
-		(*it)->removeFromChannel(this);
-		it++;
-	}
 	return ;
 }
 
@@ -101,22 +94,22 @@ std::string User::getNickHost(void) const {
 	return (_nick + "!~u@localhost");
 }
 
-std::string User::getNick(void) const {
+std::string& User::getNick(void) {
 
 	return (_nick);
 }
 
-std::string User::getRealname(void) const {
+std::string& User::getRealname(void) {
 
 	return (_realname);
 }
 
-std::string User::getUsername(void) const {
+std::string& User::getUsername(void) {
 
 	return (_username);
 }
 
-bool	User::getUserOrNickCmd(void) const {
+bool	User::getUserOrNickCmd(void) const{
 
 	return (_userOrNickCmd);
 }

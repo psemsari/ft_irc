@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:43 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/03 18:39:42 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:27:30 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	shutdownServer(int sigId)
 	{
 		Server *tmp;
 		tmp = (Server *)data;
-		deleteAllUsers(tmp, tmp->getUsers());
-		if (tmp->getAI() != NULL)
+		//deleteAllUsers(tmp, tmp->getUsers());
+		if (tmp && tmp->getAI() != NULL)
 			freeaddrinfo(tmp->getAI());
-		if (tmp->getListener() != -1)
+		if (tmp && tmp->getListener() != -1)
 			close(tmp->getListener());
 		tmp->~Server();
 		exit (0);

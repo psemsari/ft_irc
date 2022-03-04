@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:48:51 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 16:53:01 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:23:09 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,9 +223,17 @@ void	Server::newConnection(void) {
 
 void	Server::endConnection(int currentSocket) {
 
+	User::channels_list toDelete = this->getUsers()[currentSocket].getChannelList();
+	User::channels_list::iterator it = toDelete.begin();
+	while (it != toDelete.end())
+	{
+		(*it)->removeFromChannel(&(getUsers()[currentSocket]));
+		it++;
+	}
 	_users.erase(currentSocket);
 	close(currentSocket);
 	FD_CLR(currentSocket, &_masterFds);
+
 }
 
 void	Server::createChannel(std::string name)

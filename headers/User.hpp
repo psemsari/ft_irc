@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:33 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 11:53:20 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:42:35 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ class User
 
 		bool		getCommandEnd(void) const;
 		int			getFd(void) const;
-		std::string	getNick(void) const;
 		std::string getNickHost(void) const;
-		std::string	getRealname(void) const;
-		std::string	getUsername(void) const;
+		std::string	&getNick(void);
+		std::string	&getRealname(void);
+		std::string	&getUsername(void);
 		std::string	getCommandBuf(void) const;
 		bool		getUserOrNickCmd(void) const;
 		bool		getMode(char m) const;

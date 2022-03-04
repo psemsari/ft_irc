@@ -53,7 +53,7 @@ void	Command::_kill(std::stringstream& completeCommand, User& user)
     sendDirect(target, PONG, ":"+ user.getNick() +" NOTICE " + target.getNick() + " You have been killed because: " + message + "\r\n");
 	user.getServer().setUnavalaibleName(nick);
     if (target.getNick() == user.getNick())
-        target.setIsEnded(true);
+        user.setIsEnded(true);
     else
         target.getServer().endConnection(target.getFd());
 }
