@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:49:03 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/03 15:46:19 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:59:56 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ User::User(int fd, Server* server) :	_userOrNickCmd(false),
 
 User::~User(void) {
 
+	channels_list::iterator it = _channels_list.begin();
+	while (it != _channels_list.end())
+	{
+		(*it)->removeFromChannel(this);
+		_channels_list.erase(it);
+		it++;
+	}
 	return ;
 }
 
@@ -366,7 +373,7 @@ void	User::handleCommand(char* buffer) {
 			_commandBuf.clear();
 			if (getIsEnded())
 			{
-				getServer().endConnection(getFd());
+				getServer().endConnection(_fd);
 				return ;
 			}
 		}

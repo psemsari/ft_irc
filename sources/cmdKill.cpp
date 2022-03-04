@@ -17,7 +17,7 @@ void	Command::_kill(std::stringstream& completeCommand, User& user)
     std::string cmd = "KILL";
     std::string nick;
     std::string message;
-    User *target;
+    User target;
 
     completeCommand >> nick;
     completeCommand >> message;
@@ -36,14 +36,26 @@ void	Command::_kill(std::stringstream& completeCommand, User& user)
         sendCommand(user, ERRCODE_CANTKILLSERVER, ERR_CANTKILLSERVER());
         return ;
     }
-    target = user.getServer().findByNickName(user, nick);
-    if (!target)
+    std::map<int, User> tmp = user.getServer().getUsers();
+    std::map<int, User>::iterator it = tmp.begin();
+    std::map<int, User>::iterator ite = tmp.end();
+    while (it != ite)
+    {
+        if (it->second.getNick() == nick)
+	            target = it->second;
+        it++;
+    }
+
+    if (target.getNick() == DEFAULT_NICKNAME)
     {
         sendCommand(user, ERRCODE_NOSUCHNICK, ERR_NOSUCHNICK(nick));
         return ;
     }
     // message.erase(0, 1);
-    sendDirect(*target, PONG, ":"+ user.getNick() +" NOTICE " + target->getNick() + " You have been killed because: " + message + "\r\n");
+    sendDirect(target, PONG, ":"+ user.getNick() +" NOTICE " + target.getNick() + " You have been killed because: " + message + "\r\n");
 	user.getServer().setUnavalaibleName(nick);
-    target->getServer().endConnection(target->getFd());
+    if (target.getNick() == user.getNick())
+        target.setIsEnded(true);
+    else
+        target.getServer().endConnection(target.getFd());
 }
