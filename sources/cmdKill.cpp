@@ -18,9 +18,18 @@ void	Command::_kill(std::stringstream& completeCommand, User& user)
     std::string nick;
     std::string message;
     User target;
+    std::string buf;
 
     completeCommand >> nick;
-    completeCommand >> message;
+
+	completeCommand >> buf;
+	while (buf.empty() == false)
+	{
+		message += buf;
+		message += ' ';
+		buf.clear();
+		completeCommand >> buf;	
+	}
     if (user.getMode('o') == false)
     {
         sendCommand(user, ERRCODE_NOPRIVILEGES, ERR_NOPRIVILEGES());
