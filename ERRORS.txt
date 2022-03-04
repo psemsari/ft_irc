@@ -1,0 +1,4 @@
+Verifier que le user soit log a l exec de chaque commande
+
+Quand un user se fait deco il ping -> invalid read / segv / SIGPIPE
+

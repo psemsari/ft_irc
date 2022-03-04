@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:24:04 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/03 17:30:20 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:44:39 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	Command::_nick(std::stringstream& completeCommand, User& user) {
 	std::string nickname;
 
 	if (user.getPassGiven() == false)
-		user.setIsEnded(true);
+	{
+	    sendDirect(user, PONG, ":"+ std::string(SERV_NAME) + " NOTICE " + user.getNick() + "You need to enter the Password server before registration\r\n");
+		return ;
+	}
 	completeCommand >> nickname;
 	if (nickname == user.getNick())
 		return;
