@@ -45,13 +45,11 @@ void	Command::_kill(std::stringstream& completeCommand, User& user)
 	            target = it->second;
         it++;
     }
-
     if (target.getNick() == DEFAULT_NICKNAME)
     {
         sendCommand(user, ERRCODE_NOSUCHNICK, ERR_NOSUCHNICK(nick));
         return ;
     }
-    // message.erase(0, 1);
     sendDirect(target, PONG, ":"+ user.getNick() +" NOTICE " + target.getNick() + " You have been killed because: " + message + "\r\n");
 	user.getServer().setUnavalaibleName(nick);
     if (target.getNick() == user.getNick())
