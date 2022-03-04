@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:33 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/03 15:19:08 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 11:53:20 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ class User
 		User(int fd, Server* server);
 		~User(void);
 
+		bool	isUserLogged();
+		
 		bool	addToBuf(void);
 		void	addToSend(std::string string);
 

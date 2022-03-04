@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:47:07 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/03 18:25:52 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:47:41 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 
 	void	(Command::*command[NB_COMMAND])(std::stringstream&, User&) = {
 		&Command::_pass,
-		&Command::_names,
 		&Command::_nick,
 		&Command::_user,
 		&Command::_cap,
@@ -96,11 +95,11 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		&Command::_notice,
 		&Command::_topic,
 		&Command::_invite,
-		&Command::_die
+		&Command::_die,
+		&Command::_names
 	};
 	std::string commandId[NB_COMMAND] = {
 		"PASS",
-		"NAMES",
 		"NICK",
 		"USER",
 		"CAP",
@@ -120,13 +119,19 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		"TOPIC",
 		"INVITE",
 		"die",
+		"NAMES",
 	};
 
 	int	i;
 	for (i = 0; i < NB_COMMAND; i++)
-	{
+	{		
 		if (_type == commandId[i])
 		{
+			if (i > 2 && !user.isUserLogged())
+			{
+				sendDirect(user, ERRCODE_NOTREGISTERED, ERR_NOTREGISTERED());
+				return;
+			}
 			(this->*command[i])(completeCommand, user);
 			break;
 		}

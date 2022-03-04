@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:49:03 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 13:59:56 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:16:20 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ User::User(void) :	_userOrNickCmd(false),
 					_commandBuf(""),
 					_fd(-1),
 					_nick(DEFAULT_NICKNAME),
+					_username(DEFAULT_NICKNAME),
 					_realname(DEFAULT_NICKNAME),
 					_server(NULL),
 					_errModeChar('i'),
@@ -42,6 +43,7 @@ User::User(int fd, Server* server) :	_userOrNickCmd(false),
 										_commandBuf(""),
 										_fd(fd),
 										_nick(DEFAULT_NICKNAME),
+										_username(DEFAULT_NICKNAME),
 										_realname(DEFAULT_NICKNAME),
 										_server(server),
 										_errModeChar('i'),
@@ -311,6 +313,13 @@ void	User::setMode(bool onOff, const char* modes) {
 /*					Member functions						*/
 /************************************************************/
 
+bool	User::isUserLogged()
+{
+	if (_passGiven == true && _nick != DEFAULT_NICKNAME && _username != DEFAULT_NICKNAME && _realname != DEFAULT_NICKNAME)
+		return true;
+	return false;
+}
+
 bool	User::addToBuf(void) {
 
 	size_t	endLine;
@@ -368,6 +377,7 @@ void	User::handleCommand(char* buffer) {
 	{
 		if (getCommandEnd())
 		{
+
 			execCommand(getCommandBuf());
 			setCommandEnd(false);
 			_commandBuf.clear();
