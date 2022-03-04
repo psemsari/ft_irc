@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:43 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/02 17:05:52 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:39:42 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int main(int ac, char **av)
 		Server ircServer;
 		signal(SIGQUIT, &shutdownServer);
 		signal(SIGINT, &shutdownServer);
+		signal(SIGPIPE, SIG_IGN);
 		data = (void *)&ircServer;
 		ircServer.launchServer(av[1], av[2]);
 	}

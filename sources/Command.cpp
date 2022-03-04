@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:47:07 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 11:55:46 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:47:41 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,5 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		}
 	}
 	if (i == NB_COMMAND)
-		send(user.getFd(),	ERR_UNKNOWNCOMMAND(_type).c_str(),
-							ERR_UNKNOWNCOMMAND(_type).size(), 0);
+		sendCommand(user, ERRCODE_UNKNOWNCOMMAND, ERR_UNKNOWNCOMMAND(_type));
 }
