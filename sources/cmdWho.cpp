@@ -12,7 +12,6 @@
 
 #include "Command.hpp"
 
-
 std::string createUserDataBuff(User *usr)
 {
 	std::string buff;
@@ -57,7 +56,7 @@ User    *findByNickname(User *user, std::string name)
 	std::map<int, User> tmp = user->getServer().getUsers();
 	std::map<int, User>::iterator it = tmp.begin();
 	std::map<int, User>::iterator ite = tmp.end();
-	
+
 	User *temp;
 	while (it != ite)
 	{

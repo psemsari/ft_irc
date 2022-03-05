@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:47:07 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/05 12:51:27 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:52:17 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	Command::sendCommand(User& user, int msgId, std::string toSend) const {
 	std::stringstream numberStream;
 	std::string servName = static_cast<std::string>(SERV_NAME);
 
-	//ADD write rights verification
 	if (msgId != PONG)
 	{
 		numberStream << std::setw(3) << std::setfill('0') << msgId;
@@ -53,7 +52,6 @@ void	Command::sendDirect(User& user, int msgId, std::string toSend) const {
 	std::stringstream numberStream;
 	std::string servName = static_cast<std::string>(SERV_NAME);
 
-	//ADD write rights verification
 	if (msgId != PONG)
 	{
 		numberStream << std::setw(3) << std::setfill('0') << msgId;
@@ -124,7 +122,7 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 
 	int	i;
 	for (i = 0; i < NB_COMMAND; i++)
-	{		
+	{
 		if (_type == commandId[i])
 		{
 			if (i > 4 && !user.isUserLogged())

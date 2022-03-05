@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:33 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 19:42:35 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:31:40 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define USER_HPP
 
 # include <iostream>
-// :lol!~u@h2cbwfux4ju5g.oragono JOIN #test
-// :testnet.ergo.chat 353 lol = #test :トヨタ lol kylef Palaver
-// :testnet.ergo.chat 366 lol #test :End of NAMES list
 # include "Server.hpp"
 # include "Channel.hpp"
 # include "Command.hpp"
@@ -49,7 +46,7 @@ class User
 		~User(void);
 
 		bool	isUserLogged();
-		
+
 		bool	addToBuf(void);
 		void	addToSend(std::string string);
 

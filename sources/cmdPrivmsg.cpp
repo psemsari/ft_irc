@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:25:17 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/03 15:48:35 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:51:27 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	Command::_privmsg(std::stringstream& completeCommand, User& user){
 
-	//:prefix PRIVMSG user/#target | message suitemessage
-	//send((*it)->getFd(), str.c_str(), str.size(), NULL);
 	std::string target;
 	completeCommand >> target;
 	if (target[0] == '#')

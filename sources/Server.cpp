@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:48:51 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 19:23:09 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:41:43 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ Server::~Server(void) {
 /************************************************************/
 /*					Getters/Setters							*/
 /************************************************************/
-/*						Getters								*/
 
 int				 Server::getListener()
 {
@@ -105,18 +104,18 @@ bool	Server::isNicknameKilled(std::string name)
 	return false;
 }
 
-User    *Server::findByNickName(User& user, std::string name)
+User	*Server::findByNickName(User& user, std::string name)
 {
-    std::map<int, User> tmp = user.getServer().getUsers();
-    std::map<int, User>::iterator it = tmp.begin();
-    std::map<int, User>::iterator ite = tmp.end();
-    while (it != ite)
-    {
-        if (it->second.getNick() == name)
-	            return (&(it->second));
-        it++;
-    }
-    return NULL;
+	std::map<int, User> tmp = user.getServer().getUsers();
+	std::map<int, User>::iterator it = tmp.begin();
+	std::map<int, User>::iterator ite = tmp.end();
+	while (it != ite)
+	{
+		if (it->second.getNick() == name)
+				return (&(it->second));
+		it++;
+	}
+	return NULL;
 }
 
 void	Server::initHints(void) {

@@ -18,7 +18,6 @@ void	Command::_oper(std::stringstream& completeCommand, User& user)
     std::string name;
     std::string pass;
 
-    //ERR_NOOPERHOST
     completeCommand >> name >> pass;
     if (name.empty() || pass.empty())
 		sendCommand(user, 461, ERR_NEEDMOREPARAMS(cmd));
