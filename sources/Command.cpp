@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:47:07 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/05 15:52:17 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:32:15 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		&Command::_user,
 		&Command::_cap,
 		&Command::_quit,
+		&Command::_ping,
 		&Command::_mode,
 		&Command::_join,
-		&Command::_ping,
 		&Command::_privmsg,
 		&Command::_part,
 		&Command::_oper,
@@ -102,9 +102,9 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		"USER",
 		"CAP",
 		"QUIT",
+		"PING",
 		"MODE",
 		"JOIN",
-		"PING",
 		"PRIVMSG",
 		"PART",
 		"OPER",
@@ -125,7 +125,7 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 	{
 		if (_type == commandId[i])
 		{
-			if (i > 4 && !user.isUserLogged())
+			if (i > 5 && !user.isUserLogged())
 			{
 				sendDirect(user, ERRCODE_NOTREGISTERED, ERR_NOTREGISTERED());
 				return;
