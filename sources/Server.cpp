@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:48:51 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/05 18:33:36 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 20:27:50 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ void	Server::initAi(char* port) {
 	retGetAddrinfo = getaddrinfo(NULL, port, &_hints, &_ai);
 	if (retGetAddrinfo != SUCCESS)
 	{
-		std::cerr << "ircserv: " << gai_strerror(retGetAddrinfo) << std::endl;
 		if (_ai != NULL)
 			freeaddrinfo(_ai);
 		_ai = NULL;
@@ -176,7 +175,7 @@ void	Server::tryListen(void) {
 
 	if (listen(_listener, BACKLOG) == -1)
 	{
-		perror("listen");
+		std::cerr << "listen" << std::endl;
 		exit(FAILURE_LISTEN);
 	}
 }
@@ -188,7 +187,7 @@ void	Server::runSelect(void) {
 	timeout.tv_sec = 0;
 	timeout.tv_usec = 0;
 	if (select(_fdMax + 1, &_readFds, &_writeFds, NULL, NULL) == -1) {
-		perror("select");
+		std::cerr << "select" << std::endl;
 		exit(FAILURE_SELECT);
 	}
 }
@@ -210,7 +209,7 @@ void	Server::newConnection(void) {
 	addrLen = sizeof remoteAddr;
 	newFd = accept(_listener, (struct sockaddr *)&remoteAddr, &addrLen);
 	if (newFd == -1)
-		perror("accept");
+		std::cerr << "accept" << std::endl;
 	else
 	{
 		FD_SET(newFd, &_masterFds); // add to master set

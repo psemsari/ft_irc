@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:49:03 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 19:43:10 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/05 20:29:22 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,7 +363,7 @@ void	User::handleCommand(char* buffer) {
 
 	std::string tmp = buffer;
 
-	if (!(tmp.size() == 1 && *tmp.c_str() == EOT_CODE)) // In case of multiple ctrl+D
+	if (!(tmp.size() == 1 && *tmp.c_str() == EOT_CODE))
 		_totalBuf += buffer;
 	while (addToBuf())
 	{
