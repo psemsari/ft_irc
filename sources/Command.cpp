@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:47:07 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/04 17:28:49 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:51:27 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		&Command::_nick,
 		&Command::_user,
 		&Command::_cap,
+		&Command::_quit,
 		&Command::_mode,
 		&Command::_join,
 		&Command::_ping,
 		&Command::_privmsg,
 		&Command::_part,
-		&Command::_quit,
 		&Command::_oper,
 		&Command::_motd,
 		&Command::_list,
@@ -103,12 +103,12 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 		"NICK",
 		"USER",
 		"CAP",
+		"QUIT",
 		"MODE",
 		"JOIN",
 		"PING",
 		"PRIVMSG",
 		"PART",
-		"QUIT",
 		"OPER",
 		"motd",
 		"LIST",
@@ -127,7 +127,7 @@ void	Command::launchCommand(std::stringstream& completeCommand, User& user) {
 	{		
 		if (_type == commandId[i])
 		{
-			if (i > 2 && !user.isUserLogged())
+			if (i > 4 && !user.isUserLogged())
 			{
 				sendDirect(user, ERRCODE_NOTREGISTERED, ERR_NOTREGISTERED());
 				return;

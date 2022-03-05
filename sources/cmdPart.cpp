@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdPart.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:35:31 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/03 15:25:47 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 13:04:58 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	Command::_part(std::stringstream& completeCommand, User& user)
 
 	while (!toPart.empty())
 	{
-		channeltofind = user.getChannel(toPart.front());
+		channeltofind = user.getServer().getChannel(toPart.front());
 		if (channeltofind == NULL)
 		{
 			if (user.getServer().getChannel(toPart.front()) == NULL)
