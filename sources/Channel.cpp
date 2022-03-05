@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:09:45 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/03 13:04:47 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:21:10 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ void Channel::setModeK(bool mode)
 	_mode_k = mode;
 }
 
+void Channel::setTopic(std::string topic)
+{
+	_topic = topic;
+}
+
+
 //others
 
 bool Channel::addToChannel(User *user, std::list<std::string> &pass)
@@ -133,17 +139,29 @@ std::string Channel::usersFormat()
 	return ret;
 }
 
-bool Channel::inList(User *user)
+bool Channel::inList(User &user)
 {
 	Channel::users_list::iterator it = _invite.begin();
 	Channel::users_list::iterator ite = _invite.end();
 	for (; it != ite; it++)
 	{
-		if ((*it)->getNick() == user->getNick())
+		if ((*it)->getNick() == user.getNick())
 		{
-			_invite.remove(user);
+			_invite.erase(it);
 			return (true);
 		}
+	}
+	return (false);
+}
+
+bool Channel::inChannel(User &user)
+{
+	Channel::users_list::iterator it = _users.begin();
+	Channel::users_list::iterator ite = _users.end();
+	for (; it != ite; it++)
+	{
+		if ((*it)->getNick() == user.getNick())
+			return (true);
 	}
 	return (false);
 }

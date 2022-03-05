@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:23:09 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/03 15:19:33 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:39:51 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	Command::_join(std::stringstream& completeCommand, User& user) {
 			channel->setName(toJoin.front());
 		}
 
-		if (channel->getModeI() && !channel->inList(&user))
+		if (channel->getModeI() && !channel->inChannel(user))
 		{
 			sendCommand(user, ERRCODE_INVITEONLYCHAN, ERR_INVITEONLYCHAN(channel->getName()));
 			invite = false;
@@ -61,7 +61,7 @@ void	Command::_join(std::stringstream& completeCommand, User& user) {
 			sendCommand(user, RPLCODE_NAMREPLY, "= " + RPL_NAMREPLY(toJoin.front(), channel->usersFormat()));
 			sendCommand(user, RPLCODE_ENDOFNAMES, RPL_ENDOFNAMES(toJoin.front()));
 		}
-		else
+		else if (!channel->getModeI())
 			sendCommand(user, ERRCODE_BADCHANNELKEY, ERR_BADCHANNELKEY(toJoin.front()));
 		if (!pass.empty())
 			pass.pop_front();
