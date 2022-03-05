@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:05:02 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/04 20:21:03 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:15:42 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ class Channel
 		void setModeK(bool mode);
 		void setTopic(std::string topic);
 		void setPass(std::string pass);
+		void clearPass();
 		bool addToChannel(User *user, std::list<std::string> &pass);
 		void addToInvite(User *user);
-		void addOpToChannel(User *user);
 		void removeFromChannel(User *user);
 		void sendToChannel(std::string str, Command &command, int notsend);
 		std::string usersFormat();
@@ -58,7 +58,6 @@ class Channel
 		std::string	_topic;
 		std::string	_pass;
 		users_list	_users;
-		users_list	_opers;
 		users_list	_invite;
 };
 

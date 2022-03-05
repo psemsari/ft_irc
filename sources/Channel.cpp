@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:09:45 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/05 13:15:28 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:15:24 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,15 @@ std::string Channel::getPass()
 
 void Channel::setPass(std::string pass)
 {
-	_pass = pass;
+	if (pass.empty())
+		_pass = "x";
+	else
+		_pass = pass;
+}
+
+void Channel::clearPass()
+{
+	_pass.clear();
 }
 
 //set
@@ -95,7 +103,7 @@ void Channel::setTopic(std::string topic)
 
 bool Channel::addToChannel(User *user, std::list<std::string> &pass)
 {
-	if (_mode_k && pass.empty() && pass.front() != _pass)
+	if (_mode_k && (pass.empty() || (!pass.empty() && pass.front() != _pass)))
 		return (false);
 	_users.push_back(user);
 	return (true);
@@ -111,8 +119,13 @@ void Channel::removeFromChannel(User *user)
 	users_list::iterator it = _users.begin();
 	users_list::iterator ite = _users.end();
 	for (; it != ite; it++)
+	{
 		if ((*it)->getNick() == user->getNick())
+		{
 			_users.erase(it);
+			return ;
+		}
+	}
 }
 
 void Channel::sendToChannel(std::string str, Command &command, int notsend)
