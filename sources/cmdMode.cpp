@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdMode.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:23:40 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/05 14:14:38 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:10:15 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	Command::_channel_i(std::stringstream& completeCommand, User& user, Channel
 	if (value == !channel->getModeI())
 	{
 		channel->setModeI(value);
-		channel->sendToChannel(":" + user.getNick() + " " + completeCommand.str() + "\r\n", *this, 0);
+		channel->sendToChannel(":" + user.getNickHost() + " " + completeCommand.str() + "\r\n", *this, 0);
 	}
 	else
 		_sendGetMode(user, channel);

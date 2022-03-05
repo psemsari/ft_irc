@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdInvite.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:12:58 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/04 19:18:11 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:40:19 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	Command::_invite(std::stringstream& completeCommand, User& user){
 		sendCommand(user, ERRCODE_USERONCHANNEL, ERR_USERONCHANNEL(target, channel));
 		return ;
 	}
-	sendCommand(user, RPLCODE_INVITING, RPL_INVITING(channel, target));
+	sendCommand(user, RPLCODE_INVITING, RPL_INVITING(target, channel));
 	channelToJoin->addToInvite(userToInvite);
 	sendDirect(*userToInvite, PONG, ":" + user.getNick() + " " + completeCommand.str() + "\r\n");
 }

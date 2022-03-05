@@ -6,7 +6,7 @@
 /*   By: bemoreau <bemoreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:24:04 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/05 11:33:09 by bemoreau         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:03:52 by bemoreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	Command::_nick(std::stringstream& completeCommand, User& user) {
 		sendDirect(user, 433, ERR_NICKNAMEINUSE(nickname));
 		return ;
 	}
-	if (user.getUserOrNickCmd() && !user.getStartMsg())
+	if (user.getUserOrNickCmd() && !user.getStartMsg() && (user.getUsername() != DEFAULT_NICKNAME))
 	{
 		user.setNickname(nickname);
 		sendStartMsgs(user);
