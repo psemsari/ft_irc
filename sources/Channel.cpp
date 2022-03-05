@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:09:45 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/05 14:15:24 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:03:36 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,10 @@ void Channel::setTopic(std::string topic)
 
 //others
 
-bool Channel::addToChannel(User *user, std::list<std::string> &pass)
+bool Channel::addToChannel(User *user, std::list<std::string> &pass, bool invite)
 {
-	if (_mode_k && (pass.empty() || (!pass.empty() && pass.front() != _pass)))
+	if ((_mode_i && invite == false)
+	|| (_mode_k && !_mode_i && (pass.empty() || (!pass.empty() && pass.front() != _pass))))
 		return (false);
 	_users.push_back(user);
 	return (true);
