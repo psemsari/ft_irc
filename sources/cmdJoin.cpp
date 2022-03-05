@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:23:09 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/05 20:10:58 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 20:21:16 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	Command::_join(std::stringstream& completeCommand, User& user) {
 			channel->setName(toJoin.front());
 		}
 
-		if (channel->getModeI() && !channel->inList(user))
+		if (channel->getModeI() && !channel->inListRm(user))
 		{
 			sendCommand(user, ERRCODE_INVITEONLYCHAN, ERR_INVITEONLYCHAN(channel->getName()));
 			invite = false;
 		}
-		else if (channel->addToChannel(&user, pass, invite)) //revoir
+		else if (channel->addToChannel(&user, pass, invite))
 		{
 			user.addChannel(channel);
 			channel->sendToChannel(":" + user.getNickHost() + " JOIN " + toJoin.front() + "\r\n", *this, user.getFd());

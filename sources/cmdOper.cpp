@@ -20,7 +20,10 @@ void	Command::_oper(std::stringstream& completeCommand, User& user)
 
     completeCommand >> name >> pass;
     if (name.empty() || pass.empty())
-		sendCommand(user, 461, ERR_NEEDMOREPARAMS(cmd));
+	{
+    	sendCommand(user, 461, ERR_NEEDMOREPARAMS(cmd));
+        return;
+    }
     if (user.setOperator(name, pass) == 0)
     {
         sendCommand(user, 381, RPL_YOUREOPER());
