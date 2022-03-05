@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:48:51 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/05 15:41:43 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 18:33:36 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ User*	Server::getUser(std::string name)
 	std::map<int, User>::iterator it = _users.begin();
 	std::map<int, User>::iterator ite = _users.end();
 
-	for (; it->first != ite->first; it++)
+	for (; it != ite; it++)
 	{
 		if (it->second.getNick() == name)
 			return (&it->second);
