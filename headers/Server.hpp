@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:27 by bemoreau          #+#    #+#             */
-/*   Updated: 2022/03/03 15:34:50 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 20:18:03 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@
 # include <vector>
 //
 
-# define SERV_NAME "Cthulhu"
+# define SERV_NAME "minishell"
 # define SERV_VERSION "0.1"
 # define CREATION_DATE "Today"
 
 # define MOTD "Welcome to our ft_irc server !"
 
-# define OPERNAME "ircserver"
-# define OPERPASS "karmineCorp"
+# define OPERNAME "KC"
+# define OPERPASS "Rekkles"
 
 # define SUCCESS 0
 # define SUCCESS_ADD 1

@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:23:09 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/05 18:29:24 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 20:10:58 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	Command::_join(std::stringstream& completeCommand, User& user) {
 			user.addChannel(channel);
 			channel->sendToChannel(":" + user.getNickHost() + " JOIN " + toJoin.front() + "\r\n", *this, user.getFd());
 			sendCommand(user, PONG, ":" + user.getNickHost() + " JOIN " + toJoin.front() + "\r\n");
+			sendCommand(user, RPLCODE_TOPIC, RPL_TOPIC(channel->getName(), channel->getTopic()));
 			sendCommand(user, RPLCODE_NAMREPLY, "= " + RPL_NAMREPLY(toJoin.front(), channel->usersFormat()));
 			sendCommand(user, RPLCODE_ENDOFNAMES, RPL_ENDOFNAMES(toJoin.front()));
 		}
