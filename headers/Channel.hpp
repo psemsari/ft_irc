@@ -6,7 +6,7 @@
 /*   By: psemsari <psemsari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:05:02 by psemsari          #+#    #+#             */
-/*   Updated: 2022/03/05 14:55:55 by psemsari         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:00:06 by psemsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ class Channel
 		void removeFromChannel(User *user);
 		void sendToChannel(std::string str, Command &command, int notsend);
 		std::string usersFormat();
+		bool inListRm(User &user);
 		bool inList(User &user);
 		bool inChannel(User &user);
 
