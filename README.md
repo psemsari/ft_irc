@@ -1,3 +1,4 @@
+![image](https://img.shields.io/badge/Maintained%3F-no-red.svg)
 # FT_IRC
 
 FT_IRC is a project that consists of creating an IRC server in C++. 
